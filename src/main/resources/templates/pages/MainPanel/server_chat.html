@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Chat</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" ></script>
+        <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.0-beta.1/angular.min.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="assets/MainPanel/css/server.css" type="text/css"/>
+        <script src="assets/MainPanel/js/serverchatapp.js" type="text/javascript"></script>
+    </head>
+    <body ng-app="myApp">
+        <div class="container-fluid" ng-controller="myController">
+            <nav class="navbar fixed-top navbar-toggleable-sm bg-inverse navbar-inverse">
+
+                <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#mainNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="mainNav">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Setting
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right bg-inverse" aria-labelledby="navbarDropdownMenuLink">
+                                <a class="dropdown-item" href="#">Account Setting</a>
+                                <a class="dropdown-item" href="#">Logout</a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <div class="row">
+                <div class="col-3">
+                    <div class="chat-users">
+                        <h4 class="chat-title">Users</h4>
+                        <div class="chat-content">
+                            <div ng-repeat="usr in chats">
+                                <a href="" ng-click="message(usr)">
+                                    <div class="chat-user">
+                                        <p>{{usr.name}}</p>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-9">
+                    <div class="chat-box">
+                        <h4 class="chat-box-title">{{name}}</h4>
+                        <div class="chat-data">
+                            <div class="messages">
+                                <div ng-repeat="msg in messages">
+                                    <div class="chat" ng-class="msg.messageFrom == 'Client'  ? 'self' : 'friend'">
+                                        <div class="user-photo"></div>
+                                        <p style="color: black" class="chat-message">{{msg.message}}</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class=" chat-form">
+                                <form class="form-inline">
+                                    <div class="row">
+                                        <div class="form-group">
+                                            <div class="col-10">
+                                                <textarea ng-model="servermsg.message" ng-keypress="($event.keyCode == 13)? send() : return"></textarea>
+                                                <!--<input type="hidden" ng-model="servermsg.chatId">-->
+                                            </div>
+                                            <div class="col-2">
+                                                <button class="btn float-right" type="submit"  ng-click="send()"><i class="fa fa-paper-plane "></i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
