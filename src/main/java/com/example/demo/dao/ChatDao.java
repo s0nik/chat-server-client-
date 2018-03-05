@@ -7,6 +7,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ChatDao extends JpaRepository<Chat, Integer>{
     
-//    public Object findAllByOrderByUpdatedDESC();
-    
+public Chat findByChatId(int chat_id);
 }

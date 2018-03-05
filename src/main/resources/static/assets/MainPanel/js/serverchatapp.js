@@ -1,12 +1,13 @@
 var app = angular.module("myApp", []);
-app.controller("myController", function ($scope, $http, $interval, $rootScope) {
+app.controller("myController", function ($scope, $http, $interval, $rootScope, $filter) {
 
-
+    var id;
     //retrieving all chats data at the beginning
     $http.get("api/allchats").then(function (response) {
         $scope.chats = response.data.data;
         $rootScope.msgobj = $scope.chats[0]; //object of the first message showing
         $scope.message($rootScope.msgobj); //to display message list of first
+        id = $rootScope.msgobj.chatId;
     });
 
     $interval(function () {
@@ -17,23 +18,19 @@ app.controller("myController", function ($scope, $http, $interval, $rootScope) {
     $scope.allmessage = function () {
         $http.get("api/allchats").then(function (response) {
             $scope.chats = response.data.data;
-            var a = $rootScope.msgobj.chatId - 1;
-            $rootScope.msgobj = $scope.chats[a];
+            $scope.objarray = $filter('filter')($scope.chats, {'chatId':id}); //gives array with one object
+           //converting array into object
+            $rootScope.msgobj = $scope.objarray[0];
         });
     };
 
 
-
+    //checks for new message every second in object retrived msgobj
     $interval(function () {
-        $scope.refresh($rootScope.msgobj);
+        $scope.messages = $rootScope.msgobj.chatMessageList;
     }, 1000);
 
 
-// to check if there is new message
-    $scope.refresh = function (msg) {
-        $scope.messages = msg.chatMessageList;
-        $rootScope.msgobj = msg;
-    };
 
     // to retrive message of individual  
     $scope.message = function (msg) {
@@ -41,6 +38,7 @@ app.controller("myController", function ($scope, $http, $interval, $rootScope) {
         $scope.servermsg = {'chatId': msg.chatId};
         $scope.name = msg.name;
         $rootScope.msgobj = msg;
+        id = msg.chatId;
     };
 
 

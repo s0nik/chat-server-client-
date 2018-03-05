@@ -52,8 +52,6 @@ public class ChatController {
         response = new ResponseService("Message not sent");
         try {
             Chat chat = (Chat) session.getAttribute("chat");
-//            int id = (int) session.getAttribute("id");
-//            Chat chat = new Chat(id);
             dto.setChatId(chat);
             dto.setMessageFrom("Client");
             messageService.saveMessage(dto);
@@ -67,7 +65,6 @@ public class ChatController {
 
     @GetMapping("/close")
     public ResponseEntity<?> close(HttpSession session) {
-//        HttpSession session = request.getSession(false);
         try {
             session.invalidate();
         } catch (Exception e) {
@@ -113,9 +110,11 @@ public class ChatController {
     public ResponseEntity<?> servermessage(@RequestBody MessageDto dto) {
         ResponseService response = new ResponseService("Not Saved");
         try {
-            System.out.println(dto.getMessage());
+            Chat chat = new Chat();
+            chat = dto.getChatId();
             dto.setMessageFrom("Server");
             messageService.saveMessage(dto);
+            chatService.update(chat);
             response.setMessage("Messent sent");
         } catch (Exception e) {
             e.printStackTrace();
