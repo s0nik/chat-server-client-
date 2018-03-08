@@ -36,10 +36,10 @@ public class ChatServiceImpl implements ChatService{
 
     @Override
     public void update(Chat chat) throws Exception {
-        Chat obj = chatDaoImpl.findByChatId(chat.getChatId());
-        System.out.println(obj.getName());
-//        obj.setUpdated(new Date());
-//        chatDaoImpl.save(obj);
+        Chat obj = new Chat();
+        obj = chatDaoImpl.findOne(chat.getChatId());
+        obj.setUpdated(new Date());
+        chatDaoImpl.save(obj);
     }
     
 }

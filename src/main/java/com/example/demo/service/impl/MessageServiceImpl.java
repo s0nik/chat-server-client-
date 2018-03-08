@@ -5,6 +5,7 @@ import com.example.demo.dto.MessageDto;
 import com.example.demo.model.Chat;
 import com.example.demo.model.ChatMessage;
 import com.example.demo.service.MessageService;
+import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,6 +22,8 @@ public class MessageServiceImpl implements MessageService {
         chat.setChatId(dto.getChatId());
         chat.setMessage(dto.getMessage());
         chat.setMessageFrom(dto.getMessageFrom());
+        chat.setTime(new Date());
+        chat.setStatus(false);
         messageDao.save(chat);
     }
 
