@@ -36,11 +36,12 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Chat.findAll", query = "SELECT c FROM Chat c")
     , @NamedQuery(name = "Chat.findByChatId", query = "SELECT c FROM Chat c WHERE c.chatId = :chatId")
-    , @NamedQuery(name = "Chat.findByName", query = "SELECT c FROM Chat c WHERE c.name = :name")
+    , @NamedQuery(name = "Chat.findByCreated", query = "SELECT c FROM Chat c WHERE c.created = :created")
     , @NamedQuery(name = "Chat.findByEmail", query = "SELECT c FROM Chat c WHERE c.email = :email")
     , @NamedQuery(name = "Chat.findByIpAddress", query = "SELECT c FROM Chat c WHERE c.ipAddress = :ipAddress")
-    , @NamedQuery(name = "Chat.findByCreated", query = "SELECT c FROM Chat c WHERE c.created = :created")
-    , @NamedQuery(name = "Chat.findByUpdated", query = "SELECT c FROM Chat c WHERE c.updated = :updated")})
+    , @NamedQuery(name = "Chat.findByName", query = "SELECT c FROM Chat c WHERE c.name = :name")
+    , @NamedQuery(name = "Chat.findByUpdated", query = "SELECT c FROM Chat c WHERE c.updated = :updated")
+    , @NamedQuery(name = "Chat.findByStatus", query = "SELECT c FROM Chat c WHERE c.status = :status")})
 public class Chat implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -51,9 +52,9 @@ public class Chat implements Serializable {
     private Integer chatId;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 255)
-    @Column(name = "name")
-    private String name;
+    @Column(name = "created")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date created;
     // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
     @Basic(optional = false)
     @NotNull
@@ -67,14 +68,18 @@ public class Chat implements Serializable {
     private String ipAddress;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "created")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date created;
+    @Size(min = 1, max = 255)
+    @Column(name = "name")
+    private String name;
     @Basic(optional = false)
     @NotNull
     @Column(name = "updated")
     @Temporal(TemporalType.TIMESTAMP)
     private Date updated;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "status")
+    private boolean status;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "chatId")
     private List<ChatMessage> chatMessageList;
 
@@ -85,13 +90,14 @@ public class Chat implements Serializable {
         this.chatId = chatId;
     }
 
-    public Chat(Integer chatId, String name, String email, String ipAddress, Date created, Date updated) {
+    public Chat(Integer chatId, Date created, String email, String ipAddress, String name, Date updated, boolean status) {
         this.chatId = chatId;
-        this.name = name;
+        this.created = created;
         this.email = email;
         this.ipAddress = ipAddress;
-        this.created = created;
+        this.name = name;
         this.updated = updated;
+        this.status = status;
     }
 
     public Integer getChatId() {
@@ -102,12 +108,12 @@ public class Chat implements Serializable {
         this.chatId = chatId;
     }
 
-    public String getName() {
-        return name;
+    public Date getCreated() {
+        return created;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setCreated(Date created) {
+        this.created = created;
     }
 
     public String getEmail() {
@@ -126,12 +132,12 @@ public class Chat implements Serializable {
         this.ipAddress = ipAddress;
     }
 
-    public Date getCreated() {
-        return created;
+    public String getName() {
+        return name;
     }
 
-    public void setCreated(Date created) {
-        this.created = created;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Date getUpdated() {
@@ -140,6 +146,14 @@ public class Chat implements Serializable {
 
     public void setUpdated(Date updated) {
         this.updated = updated;
+    }
+
+    public boolean getStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
     }
 
     @XmlTransient

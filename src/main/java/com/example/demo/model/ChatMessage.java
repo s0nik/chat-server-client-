@@ -37,8 +37,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "ChatMessage.findAll", query = "SELECT c FROM ChatMessage c")
     , @NamedQuery(name = "ChatMessage.findByMessageId", query = "SELECT c FROM ChatMessage c WHERE c.messageId = :messageId")
     , @NamedQuery(name = "ChatMessage.findByMessageFrom", query = "SELECT c FROM ChatMessage c WHERE c.messageFrom = :messageFrom")
-    , @NamedQuery(name = "ChatMessage.findByTime", query = "SELECT c FROM ChatMessage c WHERE c.time = :time")
-    , @NamedQuery(name = "ChatMessage.findByStatus", query = "SELECT c FROM ChatMessage c WHERE c.status = :status")})
+    , @NamedQuery(name = "ChatMessage.findByTime", query = "SELECT c FROM ChatMessage c WHERE c.time = :time")})
 public class ChatMessage implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -61,10 +60,6 @@ public class ChatMessage implements Serializable {
     @Column(name = "time")
     @Temporal(TemporalType.TIMESTAMP)
     private Date time;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "status")
-    private boolean status;
     @JoinColumn(name = "chat_id", referencedColumnName = "chat_id")
     @ManyToOne(optional = false)
     @JsonIgnore
@@ -77,11 +72,10 @@ public class ChatMessage implements Serializable {
         this.messageId = messageId;
     }
 
-    public ChatMessage(Integer messageId, String messageFrom, String message, boolean status) {
+    public ChatMessage(Integer messageId, String messageFrom, String message) {
         this.messageId = messageId;
         this.messageFrom = messageFrom;
         this.message = message;
-        this.status = status;
     }
 
     public Integer getMessageId() {
@@ -114,14 +108,6 @@ public class ChatMessage implements Serializable {
 
     public void setTime(Date time) {
         this.time = time;
-    }
-
-    public boolean getStatus() {
-        return status;
-    }
-
-    public void setStatus(boolean status) {
-        this.status = status;
     }
 
     public Chat getChatId() {

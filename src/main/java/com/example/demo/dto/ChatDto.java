@@ -2,18 +2,31 @@
 package com.example.demo.dto;
 
 public class ChatDto {
-    int chat_id;
+    int chatId;
     String name;
     String email;
     String ip;
+    Boolean status;
 
-    public int getChat_id() {
-        return chat_id;
+    public int getChatId() {
+        return chatId;
     }
 
-    public void setChat_id(int chat_id) {
-        this.chat_id = chat_id;
+    public void setChatId(int chatId) {
+        this.chatId = chatId;
     }
+
+       
+    
+    public Boolean getStatus() {
+        return status;
+    }
+
+    public void setStatus(Boolean status) {
+        this.status = status;
+    }
+
+   
 
     public String getName() {
         return name;

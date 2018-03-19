@@ -23,7 +23,6 @@ public class MessageServiceImpl implements MessageService {
         chat.setMessage(dto.getMessage());
         chat.setMessageFrom(dto.getMessageFrom());
         chat.setTime(new Date());
-        chat.setStatus(false);
         messageDao.save(chat);
     }
 
@@ -32,5 +31,4 @@ public class MessageServiceImpl implements MessageService {
         List<ChatMessage> list = messageDao.findByChatId(chat_id);
         return list;
     }
-
 }

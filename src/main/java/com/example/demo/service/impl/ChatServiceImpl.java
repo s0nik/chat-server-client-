@@ -25,6 +25,7 @@ public class ChatServiceImpl implements ChatService{
         obj.setName(chatDto.getName());
         obj.setEmail(chatDto.getEmail());
         obj.setIpAddress(chatDto.getIp());
+        obj.setStatus(false);
         Chat chat = chatDaoImpl.save(obj);
         return chat;
     }
@@ -41,5 +42,25 @@ public class ChatServiceImpl implements ChatService{
         obj.setUpdated(new Date());
         chatDaoImpl.save(obj);
     }
+    
+    @Override
+    public void newMessage(Chat chat) throws Exception {
+        Chat obj = new Chat();
+        obj = chatDaoImpl.findOne(chat.getChatId());
+        obj.setStatus(false);
+        chatDaoImpl.save(obj);
+    }
+
+    @Override
+    public void markRead(ChatDto dto) throws Exception {
+        Chat chat = new Chat();
+        chat = chatDaoImpl.findOne(dto.getChatId());
+        chat.setStatus(true);
+        chatDaoImpl.save(chat);
+    }
+
+    
+    
+    
     
 }

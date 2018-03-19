@@ -56,6 +56,7 @@ public class ChatController {
             dto.setMessageFrom("Client");
             messageService.saveMessage(dto);
             chatService.update(chat);
+            chatService.newMessage(chat);
 //            response.setData(id);
         } catch (Exception e) {
             e.printStackTrace();
@@ -115,10 +116,33 @@ public class ChatController {
             dto.setMessageFrom("Server");
             messageService.saveMessage(dto);
             chatService.update(chat);
+            
+            
+            ChatDto chatdto = new ChatDto();
+            chatdto.setChatId(chat.getChatId());
+            chatService.markRead(chatdto);
+            
+            
             response.setMessage("Messent sent");
         } catch (Exception e) {
             e.printStackTrace();
         }
         return ResponseEntity.ok(response);
     }
+    
+    
+//    It marks the message as read
+    @PostMapping("/read")
+    public ResponseEntity<?> read(@RequestBody ChatDto dto){
+        ResponseService response =  new ResponseService("Error");
+        try {
+            chatService.markRead(dto);
+            response.setMessage("Success");
+        } catch (Exception e) {
+            e.printStackTrace();
+            response.setMessage("Error");
+        }
+     return ResponseEntity.ok(response);   
+    }
+    
 }

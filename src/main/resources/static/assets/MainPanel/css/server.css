@@ -23,7 +23,7 @@ body{
 }
 
 .chat-content{
-    height: 530px;
+    height: 465px;
     border: #ffffff solid medium;
     border-radius: 5px;
     overflow-x: hidden;
@@ -37,6 +37,15 @@ body{
     text-align: center;
     border-bottom: #ffffff solid thin;
 }
+.read{
+
+}
+
+.unread{
+    color: red;
+
+}
+
 .chat-user p {
     padding-top: 10px;
     font-weight: 600;

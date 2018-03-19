@@ -1,4 +1,4 @@
-var app = angular.module("myApp", []);
+    var app = angular.module("myApp", []);
 app.controller("myController", function ($scope, $http, $interval, $rootScope, $filter) {
 
     var id;
@@ -39,6 +39,7 @@ app.controller("myController", function ($scope, $http, $interval, $rootScope, $
         $scope.name = msg.name;
         $rootScope.msgobj = msg;
         id = msg.chatId;
+        $scope.read(msg);
     };
 
 
@@ -47,6 +48,14 @@ app.controller("myController", function ($scope, $http, $interval, $rootScope, $
         $http.post("api/servermessage", $scope.servermsg).then(function (response) {
             $scope.servermsg.message = ''; //setting message textarea blank after sent
             $scope.allmessage(); //refreshing all data   
+        });
+    };
+    
+//    to mark message as read
+    $scope.read =  function(msg){
+        console.log(msg);
+        $http.post("api/read", msg).then(function (response){
+            
         });
     };
 

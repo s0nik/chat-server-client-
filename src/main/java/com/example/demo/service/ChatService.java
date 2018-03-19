@@ -9,4 +9,6 @@ public interface ChatService {
     public Chat save(ChatDto chatDto)throws Exception;
     public Object findAll()throws Exception;
     public void update(Chat chat)throws Exception;
+    public void newMessage(Chat chat)throws Exception;
+    public void markRead(ChatDto dto)throws Exception;
 }
