@@ -23,7 +23,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class HomeController {
 
     @Autowired
-    private UserService userService;
+    private UserDao userDao;
     
     @Autowired
     InfoDao infoDaoImp;
@@ -65,18 +65,18 @@ public class HomeController {
         return "pages/MainPanel/server_chat";
     }
 
-    @GetMapping(value = "/hey")
-    public String get(){
-        try {
-        User user =  userService.findByUsername("admin");
-        System.out.println(user.getPassword());    
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("Error" + e);
-        }
-        
-        return "pages/MainPanel/chat";
-        
-    }
+//    @GetMapping(value = "/hey")
+//    public String get(){
+//        try {
+//        User user =  userDao.findByUsername("admin");
+//        System.out.println(user.getPassword());    
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            System.out.println("Error" + e);
+//        }
+//        
+//        return "pages/MainPanel/chat";
+//        
+//    }
     
 }

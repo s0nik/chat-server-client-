@@ -20,10 +20,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
                 .csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/chat", "/assets/**").permitAll()
-                .anyRequest().permitAll()
+                .anyRequest().authenticated()
                 .and()
                 .formLogin()
-//                .loginPage("/login").permitAll()
+                .loginPage("/login").permitAll()
                 .defaultSuccessUrl("/index")
                 .and().logout();
 //                .permitAll();
