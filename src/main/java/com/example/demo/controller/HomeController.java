@@ -1,11 +1,13 @@
 package com.example.demo.controller;
 
 import com.example.demo.dao.InfoDao;
+import com.example.demo.dao.UserDao;
 import com.example.demo.dto.InfoDto;
 import com.example.demo.model.Info;
+import com.example.demo.model.User;
 import com.example.demo.service.InfoService;
+import com.example.demo.service.impl.UserService;
 import java.util.List;
-import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -15,21 +17,21 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-/**
- *
- * @author nik
- */
+
 @Controller
 @RequestMapping
 public class HomeController {
 
+    @Autowired
+    private UserService userService;
+    
     @Autowired
     InfoDao infoDaoImp;
 
     @Autowired
     InfoService infoService;
 
-    @GetMapping("/index")
+    @GetMapping({"/", "/index"})
     public String index(ModelMap map) {
         List<Info> list = infoDaoImp.findAll();
         map.addAttribute("info", list);
@@ -57,9 +59,24 @@ public class HomeController {
     public String chat() {
         return "pages/MainPanel/chat";
     }
-    
+
     @GetMapping(value = "/server")
-    public String server(){
+    public String server() {
         return "pages/MainPanel/server_chat";
     }
+
+    @GetMapping(value = "/hey")
+    public String get(){
+        try {
+        User user =  userService.findByUsername("admin");
+        System.out.println(user.getPassword());    
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Error" + e);
+        }
+        
+        return "pages/MainPanel/chat";
+        
+    }
+    
 }

@@ -19,6 +19,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
@@ -26,8 +27,11 @@ import javax.validation.constraints.Size;
  */
 @Entity
 @Table(name = "user_role")
+@XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "UserRole.findAll", query = "SELECT u FROM UserRole u")})
+    @NamedQuery(name = "UserRole.findAll", query = "SELECT u FROM UserRole u")
+    , @NamedQuery(name = "UserRole.findByUrid", query = "SELECT u FROM UserRole u WHERE u.urid = :urid")
+    , @NamedQuery(name = "UserRole.findByRole", query = "SELECT u FROM UserRole u WHERE u.role = :role")})
 public class UserRole implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -38,7 +42,7 @@ public class UserRole implements Serializable {
     private Integer urid;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 12)
+    @Size(min = 1, max = 50)
     @Column(name = "role")
     private String role;
     @JoinColumn(name = "uid", referencedColumnName = "uid")

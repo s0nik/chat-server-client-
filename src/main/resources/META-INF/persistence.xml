@@ -4,6 +4,8 @@
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <class>com.example.demo.model.ChatMessage</class>
     <class>com.example.demo.model.Chat</class>
+    <class>com.example.demo.model.User</class>
+    <class>com.example.demo.model.UserRole</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/trial?zeroDateTimeBehavior=convertToNull"/>
       <property name="javax.persistence.jdbc.user" value="root"/>
