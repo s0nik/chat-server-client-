@@ -1,6 +1,7 @@
 var app = angular.module("myApp", []);
 app.controller("chatController", function ($scope, $http, $interval) {
 
+
 //    var id = Number('${id!0}');   
     console.log(id);
     if (id == 0) {
@@ -15,6 +16,7 @@ app.controller("chatController", function ($scope, $http, $interval) {
             $scope.chats = response.data.data;
         });
     };
+
 
     $scope.submit = function () {
         $http.post("api/chat", $scope.client).then(function () {

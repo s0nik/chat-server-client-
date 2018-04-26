@@ -7,7 +7,6 @@
        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" ></script>
-         <!--<link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css" type="text/css"/>-->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" type="text/css" href="assets/MainPanel/css/chat.css"/>
         <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.0-beta.1/angular.min.js"></script>
@@ -35,8 +34,11 @@
                 <form class="form-inline">
                     <div class="row">
                         <div class="form-group">
-                            <div class="col-10">
+                            <div class="col-8">
                                 <textarea ng-model="msg.message" ng-keypress="($event.keyCode == 13)? send() : return"></textarea>
+                            </div>
+                            <div class="col-2">
+                                <input type="file" name="img"/>
                             </div>
                             <div class="col-2">
                                 <button class="btn" type="submit"  ng-click="send()"><i class="fa fa-paper-plane "></i></button>

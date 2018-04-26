@@ -26,7 +26,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
                 .loginPage("/login").permitAll()
                 .defaultSuccessUrl("/index")
                 .and().logout();
-//                .permitAll();
     }
 
 //    @Autowired
