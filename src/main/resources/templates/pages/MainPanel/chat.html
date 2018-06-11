@@ -4,7 +4,7 @@
         <title>Chatbox</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" ></script>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -21,7 +21,7 @@
 
 
                 <div ng-repeat="msg in chats">
-                    <div class="chat" ng-class="msg.messageFrom == 'Client'  ? 'self' : 'friend' ">
+                    <div class="chat" ng-class="msg.messageFrom == 'Client'  ? 'self' : 'friend'">
                         <!--<div class="user-photo"></div-->
                         <div class="chat-block">
                             <p style="color: black" class="chat-message">{{msg.message}}</p>
@@ -33,15 +33,20 @@
             <div class="chat-form" ng-show="chat">
                 <form class="form-inline">
                     <div class="row">
-                        <div class="form-group">
+                        <div class="form-group col-12">
                             <div class="col-8">
                                 <textarea ng-model="msg.message" ng-keypress="($event.keyCode == 13)? send() : return"></textarea>
                             </div>
                             <div class="col-2">
-                                <input type="file" name="img"/>
+                                <button class="btn btn-sm" type="submit"  ng-click="send()"><i class="fa fa-paper-plane "></i></button>
                             </div>
-                            <div class="col-2">
-                                <button class="btn" type="submit"  ng-click="send()"><i class="fa fa-paper-plane "></i></button>
+
+                            <div class=" col-2 image-upload">
+                                <label for="file-input" >
+                                    <img src="assets/MainPanel/images/upload.png" class="img-upload" height="30" width="30" alt="img upload"/>
+                                </label>
+                                <input id="file-input" type="file" name="file" onchange="angular.element(this).scope().imgUpload(this.files)"/>
+                                <!--<input id="file-input" type="file" name="file"  ng-files="imgUpload(file)"  accept="image/*"/>-->
                             </div>
                         </div>
                     </div>
@@ -68,7 +73,7 @@
         </div>
 
         <script>
-            //The id is the primary key. The variable id is used in app.js
+            //getting id from session 
             var id = Number('${id!0}'); //typecasting into number to compare
         </script>
 
